@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Rol {
+  ADMIN
+  CLIENTE
+}
+
+enum TipoGafa {
+  SOL
+  VISTA
+}
+
+enum FormaGafa {
+  RECTANGULAR
+  REDONDA
+  CUADRADA
+  OVALADA
+  AVIADOR
+  POLIGONAL
+  MARIPOSA
+  OJOS_DE_GATO
+  CORAZON
+  BROWLINE
+}
+
+enum FormaCara {
+  OVALADA
+  CUADRADA
+  REDONDA
+  CORAZON
+  DIAMANTE
+}
+
+model User {
+  id           String          @id @default(uuid())
+  email        String          @unique
+  passwordHash String
+  rol          Rol
+  favorites    UserFavorites[]
+}
+
+model Product {
+  id              String           @id @default(uuid())
+  marca           String
+  modelo          String
+  precio          Decimal
+  tipo            TipoGafa
+  formaGafa       FormaGafa
+  formasCaraIdeal FormaCara[]
+  descripcion     String?
+  activo          Boolean          @default(true)
+  imagenes        ImagenProducto[]
+  favoritedBy     UserFavorites[]
+}
+
+model ImagenProducto {
+  id          String  @id @default(uuid())
+  url         String
+  esPrincipal Boolean @default(false)
+  productoId  String
+  producto    Product @relation(fields: [productoId], references: [id])
+}
+
+model UserFavorites {
+  userId    String
+  productId String
+  user      User    @relation(fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@id([userId, productId])
+}
