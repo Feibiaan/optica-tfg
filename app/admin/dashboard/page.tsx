@@ -39,6 +39,7 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProducts()
   }, [])
 
@@ -116,7 +117,7 @@ export default function DashboardPage() {
         {confirmDeleteId && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
-              <h3 className="font-semibold mb-2">¿Ocultar producto?</h3>
+              <h3 className="font-semibold text-gray-700 mb-2">¿Ocultar producto?</h3>
               <p className="text-sm text-gray-600 mb-4">
                 El producto no se eliminará, solo dejará de aparecer en el catálogo.
               </p>

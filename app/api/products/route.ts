@@ -6,7 +6,25 @@ import { getAdminFromRequest } from '@/lib/auth'
 // GET: público devuelve solo activos; admin con token devuelve todos
 export async function GET(req: NextRequest) {
   const admin = getAdminFromRequest(req)
-  const where = admin ? {} : { activo: true }
+  const { searchParams } = new URL(req.url)
+
+  const tipo = searchParams.get('tipo')
+  const formaGafa = searchParams.get('formaGafa')
+  const cara = searchParams.get('cara')
+  const q = searchParams.get('q')
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const where: any = admin ? {} : { activo: true }
+
+  if (tipo) where.tipo = tipo
+  if (formaGafa) where.formaGafa = formaGafa
+  if (cara) where.formasCaraIdeal = { hasSome: [cara] }
+  if (q) {
+    where.OR = [
+      { marca: { contains: q, mode: 'insensitive' } },
+      { modelo: { contains: q, mode: 'insensitive' } },
+    ]
+  }
 
   const products = await prisma.product.findMany({
     where,
