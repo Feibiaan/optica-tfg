@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { NextRequest } from 'next/server'
 
 export interface JWTPayload {
   userId: string
@@ -20,4 +21,12 @@ export function verifyJWT(token: string): JWTPayload | null {
   } catch {
     return null
   }
+}
+
+export function getAdminFromRequest(req: NextRequest): JWTPayload | null {
+  const token = req.cookies.get('auth_token')?.value
+  if (!token) return null
+  const payload = verifyJWT(token)
+  if (!payload || payload.rol !== 'ADMIN') return null
+  return payload
 }
