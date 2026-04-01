@@ -157,11 +157,11 @@ export default function DashboardPage() {
               <tbody>
                 {products.map((p) => (
                   <tr key={p.id} className={`border-t ${!p.activo ? 'opacity-50' : ''}`}>
-                    <td className="px-4 py-3 font-medium">{p.marca} {p.modelo}</td>
-                    <td className="px-4 py-3">{Number(p.precio).toFixed(2)} €</td>
-                    <td className="px-4 py-3">{p.tipo}</td>
-                    <td className="px-4 py-3">{p.formaGafa}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 text-gray-600 py-3 font-medium">{p.marca} {p.modelo}</td>
+                    <td className="px-4 text-gray-600 py-3">{Number(p.precio).toFixed(2)} €</td>
+                    <td className="px-4 text-gray-600 py-3">{p.tipo}</td>
+                    <td className="px-4 text-gray-600 py-3">{p.formaGafa}</td>
+                    <td className="px-4 text-gray-600 py-3">
                       <span className={`px-2 py-1 rounded text-xs ${p.activo ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
                         {p.activo ? 'Activo' : 'Oculto'}
                       </span>
