@@ -38,10 +38,13 @@ export default function AdminLoginPage() {
 
       if (res.ok) {
         router.push('/admin/dashboard')
-      } else {
-        const data = await res.json()
-        setServerError(data.error ?? 'Error al iniciar sesión')
+        return
       }
+
+      const data = await res.json()
+      setServerError(data.error ?? 'Error al iniciar sesión')
+    } catch {
+      setServerError('Error de conexión. Inténtalo de nuevo.')
     } finally {
       setLoading(false)
     }
@@ -50,11 +53,11 @@ export default function AdminLoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-center">Panel de Administración</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Panel de Administración</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1" htmlFor="email">
+            <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="email">
               Email
             </label>
             <input
@@ -62,7 +65,7 @@ export default function AdminLoginPage() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               autoComplete="email"
             />
             {errors.email && (
@@ -71,7 +74,7 @@ export default function AdminLoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1" htmlFor="password">
+            <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="password">
               Contraseña
             </label>
             <input
@@ -79,7 +82,7 @@ export default function AdminLoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               autoComplete="current-password"
             />
             {errors.password && (

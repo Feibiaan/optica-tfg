@@ -76,7 +76,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Panel de Administración — Óptica</h1>
+        <h1 className="text-xl text-gray-900 font-bold">Panel de Administración — Óptica</h1>
         <button
           onClick={handleLogout}
           className="text-sm text-red-600 hover:underline"
@@ -87,7 +87,7 @@ export default function DashboardPage() {
 
       <main className="max-w-6xl mx-auto p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-semibold">Productos ({products.length})</h2>
+          <h2 className="text-lg text-gray-900 font-semibold">Productos ({products.length})</h2>
           <button
             onClick={() => { setEditingProduct(null); setShowForm(true) }}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -100,7 +100,7 @@ export default function DashboardPage() {
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-screen overflow-y-auto p-6">
-              <h3 className="text-lg font-semibold mb-4">
+              <h3 className="text-lg font-semibold text-gray-500 mb-4">
                 {editingProduct ? 'Editar producto' : 'Nuevo producto'}
               </h3>
               <ProductForm
@@ -145,12 +145,12 @@ export default function DashboardPage() {
             <table className="w-full text-sm">
               <thead className="bg-gray-100">
                 <tr>
-                  <th className="text-left px-4 py-3">Marca / Modelo</th>
-                  <th className="text-left px-4 py-3">Precio</th>
-                  <th className="text-left px-4 py-3">Tipo</th>
-                  <th className="text-left px-4 py-3">Forma</th>
-                  <th className="text-left px-4 py-3">Estado</th>
-                  <th className="text-left px-4 py-3">Acciones</th>
+                  <th className="text-left text-gray-900 px-4 py-3">Marca / Modelo</th>
+                  <th className="text-left text-gray-900 px-4 py-3">Precio</th>
+                  <th className="text-left text-gray-900 px-4 py-3">Tipo</th>
+                  <th className="text-left text-gray-900 px-4 py-3">Forma</th>
+                  <th className="text-left text-gray-900 px-4 py-3">Estado</th>
+                  <th className="text-left text-gray-900 px-4 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody>

@@ -93,66 +93,66 @@ export default function ProductForm({ initialData, onSuccess, onCancel }: Produc
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Marca</label>
+          <label className="block text-sm text-gray-700 font-medium mb-1">Marca</label>
           <input
             value={form.marca}
             onChange={(e) => setForm({ ...form, marca: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded text-gray-500 px-3 py-2"
           />
           {errors.marca && <p className="text-red-500 text-xs mt-1">{errors.marca}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Modelo</label>
+          <label className="block text-sm text-gray-700 font-medium mb-1">Modelo</label>
           <input
             value={form.modelo}
             onChange={(e) => setForm({ ...form, modelo: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded text-gray-500 px-3 py-2"
           />
           {errors.modelo && <p className="text-red-500 text-xs mt-1">{errors.modelo}</p>}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Precio (€)</label>
+        <label className="block text-sm text-gray-700 font-medium mb-1">Precio (€)</label>
         <input
           type="number"
           step="0.01"
           value={form.precio}
           onChange={(e) => setForm({ ...form, precio: e.target.value })}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded text-gray-500 px-3 py-2"
         />
         {errors.precio && <p className="text-red-500 text-xs mt-1">{errors.precio}</p>}
       </div>
 
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Tipo</label>
+          <label className="block text-sm text-gray-700 font-medium mb-1">Tipo</label>
           <select
             value={form.tipo}
             onChange={(e) => setForm({ ...form, tipo: e.target.value as typeof form.tipo })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded text-gray-500 px-3 py-2"
           >
             {TIPOS_GAFA.map((t) => <option key={t}>{t}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Forma de gafa</label>
+          <label className="block text-sm text-gray-700 font-medium mb-1">Forma de gafa</label>
           <select
             value={form.formaGafa}
             onChange={(e) => setForm({ ...form, formaGafa: e.target.value as typeof form.formaGafa })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded text-gray-500 px-3 py-2"
           >
             {FORMAS_GAFA.map((f) => <option key={f}>{f}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Caras compatibles</label>
+          <label className="block text-sm text-gray-700 font-medium mb-2">Caras compatibles</label>
           <div className="space-y-1">
             {FORMAS_CARA.map((c) => (
-              <label key={c} className="flex items-center gap-2 text-sm cursor-pointer">
+              <label key={c} className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={form.formasCaraIdeal.includes(c)}
@@ -174,32 +174,32 @@ export default function ProductForm({ initialData, onSuccess, onCancel }: Produc
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">URL imagen principal</label>
+        <label className="block text-sm text-gray-700 font-medium mb-1">URL imagen principal</label>
         <input
           value={form.imagenPrincipal}
           onChange={(e) => setForm({ ...form, imagenPrincipal: e.target.value })}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded text-gray-500 px-3 py-2"
           placeholder="https://..."
         />
         {errors['imagenes'] && <p className="text-red-500 text-xs mt-1">{errors['imagenes']}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">URL imagen secundaria (opcional)</label>
+        <label className="block text-sm text-gray-700 font-medium mb-1">URL imagen secundaria (opcional)</label>
         <input
           value={form.imagenSecundaria}
           onChange={(e) => setForm({ ...form, imagenSecundaria: e.target.value })}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded text-gray-500 px-3 py-2"
           placeholder="https://..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Descripción (opcional)</label>
+        <label className="block text-sm text-gray-700 font-medium mb-1">Descripción (opcional)</label>
         <textarea
           value={form.descripcion}
           onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded text-gray-500 px-3 py-2"
           rows={3}
         />
       </div>
@@ -208,14 +208,14 @@ export default function ProductForm({ initialData, onSuccess, onCancel }: Produc
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 border rounded hover:bg-gray-50"
+          className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-200 cursor-pointer"
         >
           Cancelar
         </button>
         <button
           type="submit"
           disabled={loading}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
         >
           {loading ? 'Guardando...' : initialData?.id ? 'Actualizar' : 'Crear'}
         </button>

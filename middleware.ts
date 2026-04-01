@@ -1,15 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyJWT } from '@/lib/auth'
+import { jwtVerify } from 'jose'
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const token = req.cookies.get('auth_token')?.value
 
   if (!token) {
     return NextResponse.redirect(new URL('/admin/login', req.url))
   }
 
-  const payload = verifyJWT(token)
-  if (!payload || payload.rol !== 'ADMIN') {
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+    const { payload } = await jwtVerify(token, secret)
+
+    if (payload.rol !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/admin/login', req.url))
+    }
+  } catch {
     return NextResponse.redirect(new URL('/admin/login', req.url))
   }
 
