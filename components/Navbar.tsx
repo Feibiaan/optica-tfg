@@ -19,13 +19,13 @@ export default function Navbar() {
             href="/catalogo?tipo=VISTA"
             className="hover:text-black transition-colors"
           >
-            Glasses
+            Gafas
           </Link>
           <Link
             href="/catalogo?tipo=SOL"
             className="hover:text-black transition-colors"
           >
-            Sunglasses
+            Gafas de sol
           </Link>
         </nav>
       </div>

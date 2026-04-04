@@ -62,7 +62,7 @@ function CatalogoContent() {
         <Sidebar />
 
         <div className="flex-1">
-          <h1 className="text-2xl font-bold mb-6">Catálogo de gafas</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">Catálogo de gafas</h1>
 
           {loading ? (
             <p className="text-center text-gray-500 py-12">Cargando productos...</p>
@@ -92,7 +92,7 @@ function CatalogoContent() {
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="px-4 py-2 border rounded disabled:opacity-50 hover:bg-gray-100"
+                    className="px-4 py-2 border text-gray-500 rounded disabled:opacity-50 hover:bg-gray-200 cursor-pointer"
                   >
                     Anterior
                   </button>
@@ -102,7 +102,7 @@ function CatalogoContent() {
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
-                    className="px-4 py-2 border rounded disabled:opacity-50 hover:bg-gray-100"
+                    className="px-4 py-2 border text-gray-500 rounded disabled:opacity-50 hover:bg-gray-200 cursor-pointer"
                   >
                     Siguiente
                   </button>

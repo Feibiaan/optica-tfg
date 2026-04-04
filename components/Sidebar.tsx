@@ -51,20 +51,20 @@ export default function Sidebar() {
   return (
     <aside className="w-64 flex-shrink-0 bg-white rounded-lg shadow p-4 space-y-6 self-start">
       <div>
-        <h3 className="font-semibold mb-2">Buscar</h3>
+        <h3 className="font-semibold text-gray-900 mb-2">Buscar</h3>
         <input
           type="text"
           value={busqueda}
           onChange={(e) => handleBusqueda(e.target.value)}
           placeholder="Marca o modelo..."
-          className="w-full border rounded px-3 py-2 text-sm"
+          className="w-full border text-gray-400 rounded px-3 py-2 text-sm"
         />
       </div>
 
       <div>
-        <h3 className="font-semibold mb-2">Tipo</h3>
+        <h3 className="font-semibold text-gray-700 mb-2">Tipo</h3>
         {TIPOS.map((t) => (
-          <label key={t} className="flex items-center gap-2 mb-1 text-sm cursor-pointer">
+          <label key={t} className="flex items-center gap-2 mb-1 text-sm text-gray-400 cursor-pointer">
             <input
               type="checkbox"
               checked={selectedTipo === t}
@@ -76,9 +76,9 @@ export default function Sidebar() {
       </div>
 
       <div>
-        <h3 className="font-semibold mb-2">Forma de gafa</h3>
+        <h3 className="font-semibold text-gray-700 mb-2">Forma de gafa</h3>
         {FORMAS_GAFA.map((f) => (
-          <label key={f} className="flex items-center gap-2 mb-1 text-sm cursor-pointer">
+          <label key={f} className="flex items-center gap-2 mb-1 text-sm text-gray-400 cursor-pointer">
             <input
               type="checkbox"
               checked={selectedFormaGafa === f}
@@ -90,9 +90,9 @@ export default function Sidebar() {
       </div>
 
       <div>
-        <h3 className="font-semibold mb-2">Forma de cara</h3>
+        <h3 className="font-semibold text-gray-700 mb-2">Forma de cara</h3>
         {FORMAS_CARA.map((c) => (
-          <label key={c} className="flex items-center gap-2 mb-1 text-sm cursor-pointer">
+          <label key={c} className="flex items-center gap-2 mb-1 text-sm text-gray-400 cursor-pointer">
             <input
               type="checkbox"
               checked={selectedCara === c}
