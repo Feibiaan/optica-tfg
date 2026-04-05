@@ -89,6 +89,10 @@ Enums disponibles: `Rol`, `TipoGafa`, `FormaGafa`, `FormaCara`.
 
 `lib/schemas.ts` contiene todos los schemas Zod: `loginSchema`, `registerSchema`, `productSchema`. Usar siempre estos schemas para validar inputs en API routes.
 
+**Zod 4 — breaking changes relevantes:**
+- `errorMap` → `error` en opciones de `z.enum()` y similares
+- `ZodError.errors` → `ZodError.issues`
+
 ### Variables de entorno
 
 `DATABASE_URL`, `JWT_SECRET`, `ADMIN_EMAIL` y `ADMIN_PASSWORD` requeridas (ver `.env`). Las dos últimas son usadas por `prisma/seed-admin.ts` para crear el usuario administrador inicial.

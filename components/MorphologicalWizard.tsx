@@ -39,7 +39,7 @@ export default function MorphologicalWizard() {
     setError('')
     const parsed = stepOneSchema.safeParse({ formaCara })
     if (!parsed.success) {
-      setError(parsed.error.errors[0].message)
+      setError(parsed.error.issues[0].message)
       return
     }
     setStep(2)
@@ -49,7 +49,7 @@ export default function MorphologicalWizard() {
     setError('')
     const parsed = stepTwoSchema.safeParse({ tipoGafa })
     if (!parsed.success) {
-      setError(parsed.error.errors[0].message)
+      setError(parsed.error.issues[0].message)
       return
     }
     const url = buildCatalogoUrl({
