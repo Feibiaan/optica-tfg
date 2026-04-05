@@ -80,7 +80,7 @@ export default function DashboardPage() {
         <h1 className="text-xl text-gray-900 font-bold">Panel de Administración — Óptica</h1>
         <button
           onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
+          className="text-sm text-red-600 hover:underline cursor-pointer"
         >
           Cerrar sesión
         </button>
@@ -124,13 +124,13 @@ export default function DashboardPage() {
               <div className="flex gap-3 justify-end">
                 <button
                   onClick={() => setConfirmDeleteId(null)}
-                  className="px-4 py-2 border rounded hover:bg-gray-50"
+                  className="px-4 py-2 text-gray-600 border rounded hover:bg-gray-50 cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={() => handleDelete(confirmDeleteId)}
-                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer"
                 >
                   Ocultar
                 </button>
@@ -169,14 +169,14 @@ export default function DashboardPage() {
                     <td className="px-4 py-3 flex gap-2">
                       <button
                         onClick={() => { setEditingProduct(p); setShowForm(true) }}
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:underline cursor-pointer"
                       >
                         Editar
                       </button>
                       {p.activo && (
                         <button
                           onClick={() => setConfirmDeleteId(p.id)}
-                          className="text-red-600 hover:underline"
+                          className="text-red-600 hover:underline cursor-pointer"
                         >
                           Ocultar
                         </button>
