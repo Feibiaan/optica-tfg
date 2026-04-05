@@ -10,13 +10,13 @@ type TipoGafa = 'SOL' | 'VISTA'
 
 const stepOneSchema = z.object({
   formaCara: z.enum(['OVALADA', 'CUADRADA', 'REDONDA', 'CORAZON', 'DIAMANTE'], {
-    errorMap: () => ({ message: 'Debes seleccionar una forma de cara' }),
+    error: 'Debes seleccionar una forma de cara',
   }),
 })
 
 const stepTwoSchema = z.object({
   tipoGafa: z.enum(['SOL', 'VISTA'], {
-    errorMap: () => ({ message: 'Debes seleccionar un tipo de gafa' }),
+    error: 'Debes seleccionar un tipo de gafa',
   }),
 })
 
