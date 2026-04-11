@@ -38,11 +38,11 @@ export default function ProductCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative w-full h-48">
+      <div className="relative w-full h-48 bg-gray-50">
         <img
           src={hovered ? secundaria : principal}
           alt={`${marca} ${modelo}`}
-          className="w-full h-full object-cover transition-opacity duration-300"
+          className="w-full h-full object-contain p-2 transition-opacity duration-300"
         />
         {isLoggedIn && onToggleFavorito && (
           <button

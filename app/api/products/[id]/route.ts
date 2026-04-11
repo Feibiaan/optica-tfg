@@ -3,6 +3,24 @@ import { prisma } from '@/lib/prisma'
 import { productSchema } from '@/lib/schemas'
 import { getAdminFromRequest } from '@/lib/auth'
 
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: { imagenes: true },
+  })
+
+  if (!product) {
+    return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 })
+  }
+
+  return NextResponse.json(product)
+}
+
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
