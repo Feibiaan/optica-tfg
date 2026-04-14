@@ -44,7 +44,7 @@ export default async function HomePage() {
                 <Link
                   key={p.id}
                   href={`/catalogo`}
-                  className="bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-shadow"
+                  className="bg-white rounded-lg overflow-hidden transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                 >
                   <div className="h-36 flex items-center justify-center p-4 bg-gray-50">
                     <Image
@@ -71,34 +71,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* SECCIÓN CATEGORÍAS */}
-      {/* Nota: los botones Glasses/Sunglasses van directo al catálogo (no popup).
-          Esta sección complementa con accesos rápidos por categoría. */}
-      {/* <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.label}
-                href={cat.href}
-                className="group relative rounded-xl overflow-hidden aspect-square shadow hover:shadow-lg transition-shadow"
-              >
-                <Image
-                  src={cat.src}
-                  alt={cat.label}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/30 flex items-end p-3">
-                  <span className="text-white font-semibold text-sm">{cat.label}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
+      
       {/* RECOMENDADOR MORFOLÓGICO */}
       <div id="recomendador">
         <MorphologicalWizard />
