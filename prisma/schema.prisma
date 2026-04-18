@@ -39,11 +39,13 @@ enum FormaCara {
 }
 
 model User {
-  id           String          @id @default(uuid())
-  email        String          @unique
-  passwordHash String
-  rol          Rol
-  favorites    UserFavorites[]
+  id                 String          @id @default(uuid())
+  email              String          @unique
+  passwordHash       String
+  rol                Rol
+  resetToken         String?
+  resetTokenExpiry   DateTime?
+  favorites          UserFavorites[]
 }
 
 model Product {

@@ -30,3 +30,9 @@ export function getAdminFromRequest(req: NextRequest): JWTPayload | null {
   if (!payload || payload.rol !== 'ADMIN') return null
   return payload
 }
+
+export function getUserFromRequest(req: NextRequest): JWTPayload | null {
+  const token = req.cookies.get('auth_token')?.value
+  if (!token) return null
+  return verifyJWT(token)
+}

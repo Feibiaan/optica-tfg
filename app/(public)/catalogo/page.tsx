@@ -32,11 +32,43 @@ function CatalogoContent() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set())
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const tipo = searchParams.get('tipo') ?? ''
   const formaGafa = searchParams.get('formaGafa') ?? ''
   const cara = searchParams.get('cara') ?? ''
   const busqueda = searchParams.get('q') ?? ''
+
+  useEffect(() => {
+    fetch('/api/favorites')
+      .then((r) => {
+        if (r.ok) {
+          setIsLoggedIn(true)
+          return r.json()
+        }
+        return []
+      })
+      .then((ids: string[]) => setFavoriteIds(new Set(ids)))
+  }, [])
+
+  async function handleToggleFavorito(productId: string) {
+    const res = await fetch('/api/favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId }),
+    })
+    if (res.status === 401) {
+      window.location.href = '/login?redirect=/catalogo'
+      return
+    }
+    const data = await res.json()
+    setFavoriteIds((prev) => {
+      const next = new Set(prev)
+      data.action === 'added' ? next.add(productId) : next.delete(productId)
+      return next
+    })
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -78,6 +110,9 @@ function CatalogoContent() {
                     modelo={product.modelo}
                     precio={product.precio}
                     imagenes={product.imagenes}
+                    isFavorito={favoriteIds.has(product.id)}
+                    isLoggedIn={isLoggedIn}
+                    onToggleFavorito={handleToggleFavorito}
                   />
                 ))}
               </div>

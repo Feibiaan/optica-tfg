@@ -31,6 +31,15 @@ export const productSchema = z.object({
   ).min(1, 'Se requiere al menos una imagen'),
 })
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().email('Email inválido'),
+})
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1),
+  password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
+})
+
 export type LoginInput = z.infer<typeof loginSchema>
 export type RegisterInput = z.infer<typeof registerSchema>
 export type ProductInput = z.infer<typeof productSchema>
