@@ -32,7 +32,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
 
   async function fetchProducts() {
-    const res = await fetch('/api/products')
+    const res = await fetch('/api/products?includeInactive=true')
     const data = await res.json()
     setProducts(data)
     setLoading(false)
@@ -51,6 +51,11 @@ export default function DashboardPage() {
   async function handleDelete(id: string) {
     await fetch(`/api/products/${id}`, { method: 'DELETE' })
     setConfirmDeleteId(null)
+    fetchProducts()
+  }
+
+  async function handleRestore(id: string) {
+    await fetch(`/api/products/${id}/restore`, { method: 'POST' })
     fetchProducts()
   }
 
@@ -173,12 +178,19 @@ export default function DashboardPage() {
                       >
                         Editar
                       </button>
-                      {p.activo && (
+                      {p.activo ? (
                         <button
                           onClick={() => setConfirmDeleteId(p.id)}
                           className="text-red-600 hover:underline cursor-pointer"
                         >
                           Ocultar
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleRestore(p.id)}
+                          className="text-green-600 hover:underline cursor-pointer"
+                        >
+                          Mostrar
                         </button>
                       )}
                     </td>

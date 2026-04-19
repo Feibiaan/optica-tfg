@@ -13,8 +13,10 @@ export async function GET(req: NextRequest) {
   const cara = searchParams.get('cara')
   const q = searchParams.get('q')
 
+  const includeInactive = searchParams.get('includeInactive') === 'true'
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const where: any = admin ? {} : { activo: true }
+  const where: any = (admin && includeInactive) ? {} : { activo: true }
 
   if (tipo) where.tipo = tipo
   if (formaGafa) where.formaGafa = formaGafa
