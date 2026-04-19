@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { use, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-export default function ResetPasswordPage({ params }: { params: { token: string } }) {
+export default function ResetPasswordPage({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = use(params)
   const router = useRouter()
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -18,7 +19,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
     const res = await fetch('/api/auth/reset-password', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: params.token, password }),
+      body: JSON.stringify({ token, password }),
     })
 
     const data = await res.json()
