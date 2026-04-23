@@ -46,13 +46,13 @@ export default async function HomePage() {
                   href={`/catalogo`}
                   className="bg-white rounded-lg overflow-hidden transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                 >
-                  <div className="h-36 flex items-center justify-center p-4 bg-gray-50">
+                  <div className="relative h-36 bg-gray-50">
                     <Image
                       src={imgSrc}
                       alt={`${p.marca} ${p.modelo}`}
-                      width={160}
-                      height={90}
-                      className="object-contain"
+                      fill
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      className="object-contain p-4"
                     />
                   </div>
                   <div className="p-3 text-center">

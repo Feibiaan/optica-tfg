@@ -72,11 +72,6 @@ export default function FavoritosPage() {
     setProducts((prev) => prev.filter((p) => favoriteIds.has(p.id) && p.id !== productId))
   }
 
-  async function handleLogout() {
-    await fetch('/api/auth/logout', { method: 'POST' })
-    router.push('/')
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -84,12 +79,6 @@ export default function FavoritosPage() {
       <main className="max-w-6xl mx-auto p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Mis favoritos</h1>
-          <button
-            onClick={handleLogout}
-            className="text-sm text-gray-500 hover:text-gray-800 transition-colors cursor-pointer"
-          >
-            Cerrar sesión
-          </button>
         </div>
 
         {loading ? (

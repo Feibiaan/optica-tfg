@@ -48,7 +48,7 @@ Aplicación de gestión de óptica (TFG). Next.js 16 con App Router, PostgreSQL 
 | `/admin/login` | Pública | Login de administrador |
 | `/admin/dashboard` | Protegida (ADMIN) | CRUD de productos |
 
-Las rutas públicas viven en `app/(public)/`. Las rutas de admin en `app/admin/`. `/favoritos` y `/admin/dashboard` están protegidas por `proxy.ts`.
+Solo `/` y `/catalogo` viven en `app/(public)/`. El resto de rutas públicas (`/login`, `/register`, `/recuperar-contrasena`, `/reset-password/[token]`) y la ruta protegida `/favoritos` viven directamente en `app/`. Las rutas de admin viven en `app/admin/`. `/favoritos` y `/admin/dashboard` están protegidas por `proxy.ts`.
 
 ### Autenticación
 
