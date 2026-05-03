@@ -23,6 +23,18 @@ interface Product {
   imagenes: Imagen[]
 }
 
+function TrashIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <path d="M10 11v6" />
+      <path d="M14 11v6" />
+      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+    </svg>
+  )
+}
+
 export default function DashboardPage() {
   const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
@@ -88,22 +100,27 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl text-gray-900 font-bold">Panel de Administración — Óptica</h1>
+      <header className="bg-white shadow px-4 py-4 flex justify-between items-center">
+        <h1 className="text-base sm:text-xl text-gray-900 font-bold leading-tight">
+          Panel de Administración
+          <span className="hidden sm:inline"> — Óptica</span>
+        </h1>
         <button
           onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline cursor-pointer"
+          className="text-sm text-red-600 hover:underline cursor-pointer shrink-0 ml-4"
         >
           Cerrar sesión
         </button>
       </header>
 
-      <main className="max-w-6xl mx-auto p-6">
+      <main className="max-w-6xl mx-auto p-4 sm:p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg text-gray-900 font-semibold">Productos ({products.length})</h2>
+          <h2 className="text-base sm:text-lg text-gray-900 font-semibold">
+            Productos ({products.length})
+          </h2>
           <button
             onClick={() => { setEditingProduct(null); setShowForm(true) }}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 text-white px-3 py-2 sm:px-4 text-sm rounded hover:bg-blue-700 cursor-pointer"
           >
             + Añadir producto
           </button>
@@ -112,7 +129,7 @@ export default function DashboardPage() {
         {/* Modal formulario */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-screen overflow-y-auto p-6">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90dvh] overflow-y-auto p-4 sm:p-6">
               <h3 className="text-lg font-semibold text-gray-500 mb-4">
                 {editingProduct ? 'Editar producto' : 'Nuevo producto'}
               </h3>
@@ -179,75 +196,124 @@ export default function DashboardPage() {
 
         {loading ? (
           <p className="text-center text-gray-500 py-12">Cargando...</p>
+        ) : products.length === 0 ? (
+          <p className="text-center text-gray-500 py-8">No hay productos. Añade el primero.</p>
         ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="text-left text-gray-900 px-4 py-3">Marca / Modelo</th>
-                  <th className="text-left text-gray-900 px-4 py-3">Precio</th>
-                  <th className="text-left text-gray-900 px-4 py-3">Tipo</th>
-                  <th className="text-left text-gray-900 px-4 py-3">Forma</th>
-                  <th className="text-left text-gray-900 px-4 py-3">Estado</th>
-                  <th className="text-left text-gray-900 px-4 py-3">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((p) => (
-                  <tr key={p.id} className={`border-t ${!p.activo ? 'opacity-50' : ''}`}>
-                    <td className="px-4 text-gray-600 py-3 font-medium">{p.marca} {p.modelo}</td>
-                    <td className="px-4 text-gray-600 py-3">{Number(p.precio).toFixed(2)} €</td>
-                    <td className="px-4 text-gray-600 py-3">{p.tipo}</td>
-                    <td className="px-4 text-gray-600 py-3">{p.formaGafa}</td>
-                    <td className="px-4 text-gray-600 py-3">
-                      <span className={`px-2 py-1 rounded text-xs ${p.activo ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+          <>
+            {/* Vista móvil: tarjetas */}
+            <div className="sm:hidden flex flex-col gap-3">
+              {products.map((p) => (
+                <div
+                  key={p.id}
+                  className={`bg-white rounded-lg shadow p-4 ${!p.activo ? 'opacity-60' : ''}`}
+                >
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-gray-900 truncate">{p.marca} {p.modelo}</p>
+                      <p className="text-sm text-gray-500">{p.tipo} · {p.formaGafa}</p>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className={`px-2 py-0.5 rounded text-xs whitespace-nowrap ${p.activo ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
                         {p.activo ? 'Activo' : 'Oculto'}
                       </span>
-                    </td>
-                    <td className="px-4 py-3 flex gap-2 items-center">
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-700 mt-1 font-medium">{Number(p.precio).toFixed(2)} €</p>
+                  <div className="flex gap-3 mt-3 pt-3 border-t items-center">
+                    <button
+                      onClick={() => { setEditingProduct(p); setShowForm(true) }}
+                      className="text-sm text-blue-600 hover:underline cursor-pointer"
+                    >
+                      Editar
+                    </button>
+                    {p.activo ? (
                       <button
-                        onClick={() => { setEditingProduct(p); setShowForm(true) }}
-                        className="text-blue-600 hover:underline cursor-pointer"
+                        onClick={() => setConfirmDeleteId(p.id)}
+                        className="text-sm text-red-600 hover:underline cursor-pointer"
                       >
-                        Editar
+                        Ocultar
                       </button>
-                      {p.activo ? (
-                        <button
-                          onClick={() => setConfirmDeleteId(p.id)}
-                          className="text-red-600 hover:underline cursor-pointer"
-                        >
-                          Ocultar
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleRestore(p.id)}
-                          className="text-green-600 hover:underline cursor-pointer"
-                        >
-                          Mostrar
-                        </button>
-                      )}
+                    ) : (
                       <button
-                        onClick={() => setConfirmDestroyId(p.id)}
-                        title="Eliminar permanentemente"
-                        className="text-gray-400 hover:text-red-700 transition-colors cursor-pointer"
+                        onClick={() => handleRestore(p.id)}
+                        className="text-sm text-green-600 hover:underline cursor-pointer"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="3 6 5 6 21 6" />
-                          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                          <path d="M10 11v6" />
-                          <path d="M14 11v6" />
-                          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                        </svg>
+                        Mostrar
                       </button>
-                    </td>
+                    )}
+                    <button
+                      onClick={() => setConfirmDestroyId(p.id)}
+                      title="Eliminar permanentemente"
+                      className="ml-auto text-gray-400 hover:text-red-700 transition-colors cursor-pointer"
+                    >
+                      <TrashIcon />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Vista desktop: tabla */}
+            <div className="hidden sm:block bg-white rounded-lg shadow overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="text-left text-gray-900 px-4 py-3">Marca / Modelo</th>
+                    <th className="text-left text-gray-900 px-4 py-3">Precio</th>
+                    <th className="text-left text-gray-900 px-4 py-3">Tipo</th>
+                    <th className="text-left text-gray-900 px-4 py-3">Forma</th>
+                    <th className="text-left text-gray-900 px-4 py-3">Estado</th>
+                    <th className="text-left text-gray-900 px-4 py-3">Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {products.length === 0 && (
-              <p className="text-center text-gray-500 py-8">No hay productos. Añade el primero.</p>
-            )}
-          </div>
+                </thead>
+                <tbody>
+                  {products.map((p) => (
+                    <tr key={p.id} className={`border-t ${!p.activo ? 'opacity-50' : ''}`}>
+                      <td className="px-4 text-gray-600 py-3 font-medium">{p.marca} {p.modelo}</td>
+                      <td className="px-4 text-gray-600 py-3">{Number(p.precio).toFixed(2)} €</td>
+                      <td className="px-4 text-gray-600 py-3">{p.tipo}</td>
+                      <td className="px-4 text-gray-600 py-3">{p.formaGafa}</td>
+                      <td className="px-4 text-gray-600 py-3">
+                        <span className={`px-2 py-1 rounded text-xs ${p.activo ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                          {p.activo ? 'Activo' : 'Oculto'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 flex gap-2 items-center">
+                        <button
+                          onClick={() => { setEditingProduct(p); setShowForm(true) }}
+                          className="text-blue-600 hover:underline cursor-pointer"
+                        >
+                          Editar
+                        </button>
+                        {p.activo ? (
+                          <button
+                            onClick={() => setConfirmDeleteId(p.id)}
+                            className="text-red-600 hover:underline cursor-pointer"
+                          >
+                            Ocultar
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => handleRestore(p.id)}
+                            className="text-green-600 hover:underline cursor-pointer"
+                          >
+                            Mostrar
+                          </button>
+                        )}
+                        <button
+                          onClick={() => setConfirmDestroyId(p.id)}
+                          title="Eliminar permanentemente"
+                          className="text-gray-400 hover:text-red-700 transition-colors cursor-pointer"
+                        >
+                          <TrashIcon />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </main>
     </div>
