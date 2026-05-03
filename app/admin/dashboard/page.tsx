@@ -29,6 +29,7 @@ export default function DashboardPage() {
   const [showForm, setShowForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
+  const [confirmDestroyId, setConfirmDestroyId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   async function fetchProducts() {
@@ -51,6 +52,12 @@ export default function DashboardPage() {
   async function handleDelete(id: string) {
     await fetch(`/api/products/${id}`, { method: 'DELETE' })
     setConfirmDeleteId(null)
+    fetchProducts()
+  }
+
+  async function handleDestroy(id: string) {
+    await fetch(`/api/products/${id}/destroy`, { method: 'DELETE' })
+    setConfirmDestroyId(null)
     fetchProducts()
   }
 
@@ -118,7 +125,7 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Modal confirmación borrado */}
+        {/* Modal confirmación ocultar */}
         {confirmDeleteId && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
@@ -138,6 +145,32 @@ export default function DashboardPage() {
                   className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer"
                 >
                   Ocultar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal confirmación eliminación permanente */}
+        {confirmDestroyId && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4">
+              <h3 className="font-semibold text-red-700 mb-2">¿Eliminar producto permanentemente?</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Esta acción <strong>no se puede deshacer</strong>. El producto y todas sus imágenes serán eliminados de la base de datos.
+              </p>
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={() => setConfirmDestroyId(null)}
+                  className="px-4 py-2 text-gray-600 border rounded hover:bg-gray-50 cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={() => handleDestroy(confirmDestroyId)}
+                  className="px-4 py-2 bg-red-700 text-white rounded hover:bg-red-800 cursor-pointer"
+                >
+                  Eliminar definitivamente
                 </button>
               </div>
             </div>
@@ -171,7 +204,7 @@ export default function DashboardPage() {
                         {p.activo ? 'Activo' : 'Oculto'}
                       </span>
                     </td>
-                    <td className="px-4 py-3 flex gap-2">
+                    <td className="px-4 py-3 flex gap-2 items-center">
                       <button
                         onClick={() => { setEditingProduct(p); setShowForm(true) }}
                         className="text-blue-600 hover:underline cursor-pointer"
@@ -193,6 +226,19 @@ export default function DashboardPage() {
                           Mostrar
                         </button>
                       )}
+                      <button
+                        onClick={() => setConfirmDestroyId(p.id)}
+                        title="Eliminar permanentemente"
+                        className="text-gray-400 hover:text-red-700 transition-colors cursor-pointer"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                          <path d="M10 11v6" />
+                          <path d="M14 11v6" />
+                          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                        </svg>
+                      </button>
                     </td>
                   </tr>
                 ))}
