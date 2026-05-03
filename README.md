@@ -54,7 +54,7 @@ Aplicación web de gestión para una óptica, desarrollada como Trabajo de Fin d
 
 ```bash
 # 1. Clonar el repositorio
-git clone <url-del-repo>
+git clone https://github.com/Feibiaan/optica-tfg
 cd optica-tfg
 
 # 2. Instalar dependencias (genera el cliente Prisma automáticamente)
